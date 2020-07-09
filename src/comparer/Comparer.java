@@ -34,8 +34,9 @@ public class Comparer {
 
 	/**
 	 * @param args
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// TODO compare two csv/excel name lists 
 		String string;
 		
@@ -47,18 +48,23 @@ public class Comparer {
 		
 		//hardcoded csv file loaded into AD array
 		//TODO add file location 
-		FileReader ADFILE;
+		FileReader ADFILE = null;
 		try {
 			ADFILE = new FileReader("20200709180724_9188.csv");
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			e.getLocalizedMessage("file not found";
+			e.getLocalizedMessage();
 		}
 		BufferedReader ADF=new BufferedReader(ADFILE);
 		
 		
 		//hardcoded csv file loaded into ATCTS array
-		FileReader ATFILE = new FileReader("20200709180724_9188.csv");
+		try {
+			FileReader ATFILE = new FileReader("20200709180724_9188.csv");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//while not eof load last, first into person object
 		
