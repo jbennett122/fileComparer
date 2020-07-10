@@ -48,6 +48,7 @@ public class Comparer {
 		 List<String> s1;
 		 List<String> s2;
 		 int counter=0;
+		 int counterNot=0;
 		 boolean found;
 		 
 		 ListIterator<List<String>> ADlitr = null;
@@ -75,6 +76,9 @@ public class Comparer {
 		        ATCTS.add(getRecordFromLine(scanner.nextLine()));
 		    }
 		}
+		
+		//new csv for users not found in ATCTS
+		PrintWriter writer = new PrintWriter("output.csv", "UTF-8");
 							
 	System.out.println(AD.size());
 	
@@ -104,17 +108,17 @@ public class Comparer {
 									found = true;
 					
 									//if person found will output on console	
-										System.out.println(s1 + " is " +  s2);
+									//	System.out.println(s1 + " is " +  s2);
 															
 										//when found break out of loop
 											break;		
 									}
-							
-			
+										
 					}	
-				
+				//user not found output to file 
 				if(found == false) {
-					
+					writer.println(s1);
+					counterNot++;
 					System.out.println(s1 + " not found");
 				}
 	
@@ -122,8 +126,10 @@ public class Comparer {
 			
 		
 		System.out.println(counter + " matches");	
+		System.out.println(counterNot + " missing");	
 		
-	 
+		//close file		
+		writer.close();
 			
 	}
 	private static List<String> getRecordFromLine(String line) {
