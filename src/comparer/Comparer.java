@@ -44,8 +44,24 @@ public class Comparer {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		// TODO compare two csv/excel name lists 
-		 List<String> s1;
+		//compares two csv files to find missing items 
+		findMissingAT();
+		
+		//TODO create method to 
+			
+	}
+	private static List<String> getRecordFromLine(String line) {
+	    List<String> values = new ArrayList<String>();
+	    try (Scanner rowScanner = new Scanner(line)) {
+	        rowScanner.useDelimiter("\\r?\\n");
+	        while (rowScanner.hasNext()) {
+	            values.add(rowScanner.next());
+	        }
+	    }
+	    return values;
+	}
+	private static void findMissingAT() throws FileNotFoundException, UnsupportedEncodingException {
+		List<String> s1;
 		 List<String> s2;
 		 int counter=0;
 		 int counterNot=0;
@@ -67,13 +83,13 @@ public class Comparer {
 		    }
 		}
 		
-		ArrayList<List<String>> ATCTS = new ArrayList<>();
+		ArrayList<List<String>> AT = new ArrayList<>();
 		//20200709180724_9188b
 		//book3
 	//	try (Scanner scanner = new Scanner(new File("20200709180724_9188b.csv"));) {
 		try (Scanner scanner = new Scanner(new File("AT.csv"));) {
 		    while (scanner.hasNextLine()) {
-		        ATCTS.add(getRecordFromLine(scanner.nextLine()));
+		        AT.add(getRecordFromLine(scanner.nextLine()));
 		    }
 		}
 		
@@ -86,17 +102,17 @@ public class Comparer {
 		//iterator thru Active directory list looking for matches in ATCTS list
 			//if not found export to new list
 		ADlitr=AD.listIterator();
-		
+		 
 		//while not at the end of the AD users
 		while(ADlitr.hasNext()) {
 			
-			//convert current person into string to check if on ATCTS list
+			//convert current person into string to check if on AT list
 			s1=ADlitr.next();
 						
-				//recreate iterator to step thru the ATCTS list
-				ATlitr2=ATCTS.listIterator();
+				//recreate iterator to step thru the AT list
+				ATlitr2=AT.listIterator();
 				found=false;
-			//search ATCTS list
+			//search AT list
 				while(ATlitr2.hasNext()) {
 				
 						//current item converted into string for comparison	
@@ -130,17 +146,7 @@ public class Comparer {
 		
 		//close file		
 		writer.close();
-			
+		
+		
 	}
-	private static List<String> getRecordFromLine(String line) {
-	    List<String> values = new ArrayList<String>();
-	    try (Scanner rowScanner = new Scanner(line)) {
-	        rowScanner.useDelimiter("\\r?\\n");
-	        while (rowScanner.hasNext()) {
-	            values.add(rowScanner.next());
-	        }
-	    }
-	    return values;
-	}
-	
 }
