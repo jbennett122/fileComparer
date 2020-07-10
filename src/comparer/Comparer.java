@@ -48,7 +48,7 @@ public class Comparer {
 		 List<String> s1;
 		 List<String> s2;
 		 int counter=0;
-		 
+		 boolean found = false;
 		 
 		 ListIterator<List<String>> ADlitr = null;
 		 ListIterator<List<String>> ATlitr2 = null;
@@ -83,28 +83,36 @@ public class Comparer {
 			//if not found export to new list
 		ADlitr=AD.listIterator();
 		
-		
+		//while not at the end of the AD users
 		while(ADlitr.hasNext()) {
 			
+			//convert current person into string to check if on ATCTS list
 			s1=ADlitr.next();
 						
-					
-	//System.out.println(s1+ " - AD");
-			ATlitr2=ATCTS.listIterator();
-			while(ATlitr2.hasNext()) {
+				//recreate iterator to step thru the ATCTS list
+				ATlitr2=ATCTS.listIterator();
 				
-				//System.out.println(litr2.next());
+			//search ATCTS list
+				while(ATlitr2.hasNext()) {
+				
+				//current item converted into string for comparison	
 				s2=ATlitr2.next();
-								
-			//	System.out.println(s2 + " - AT");
-					
+	
+				//logic	
 				if(s1.equals(s2)) {
 					counter++;
-					
-				System.out.println(s1 + " is " +  s2);
-			
-				break;
-					}
+					found = true;
+						//if person found will output on console	
+					System.out.println(s1 + " is " +  s2);
+															
+							//when found break out of loop
+								break;		
+						}
+			 if(ATlitr2.hasNext()==false) {
+				 
+				  System.out.println("user not found");
+			 }
+				
 			 
 			
 				}
