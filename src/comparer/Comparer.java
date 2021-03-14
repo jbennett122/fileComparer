@@ -74,10 +74,11 @@ public class Comparer {
 			
 		
 		ArrayList<List<String>> AD = new ArrayList<>();
-		//20200709180724_9188
-		//book4
+		
+		
+		//Need to create function that allows input of file name for Active Directory user set  so it isnt hardcoded
 	//	try (Scanner scanner = new Scanner(new File("20200709180724_9188.csv"));) {
-		try (Scanner scanner = new Scanner(new File("AD.csv"));) {
+		try (Scanner scanner = new Scanner(new File("HQ_Users.csv"));) {
 		    while (scanner.hasNextLine()) {
 		    	AD.add(getRecordFromLine(scanner.nextLine()));
 		    }
@@ -86,8 +87,10 @@ public class Comparer {
 		ArrayList<List<String>> AT = new ArrayList<>();
 		//20200709180724_9188b
 		//book3
+		
+		//Need to create function that allows input of file name for ATCTS user set
 	//	try (Scanner scanner = new Scanner(new File("20200709180724_9188b.csv"));) {
-		try (Scanner scanner = new Scanner(new File("AT.csv"));) {
+		try (Scanner scanner = new Scanner(new File("ATCTS.csv"));) {
 		    while (scanner.hasNextLine()) {
 		        AT.add(getRecordFromLine(scanner.nextLine()));
 		    }
@@ -96,9 +99,9 @@ public class Comparer {
 		//new csv for users not found in ATCTS
 		PrintWriter writer = new PrintWriter("output.csv", "UTF-8");
 							
-	System.out.println(AD.size());
-	
-		
+	System.out.println("Users in Active Directory " +AD.size());
+	//System.out.println("Users in ATCTS " +AT.size());
+		//need to strip both strings to make sure its all lower with no extraneous characters
 		//iterator thru Active directory list looking for matches in ATCTS list
 			//if not found export to new list
 		ADlitr=AD.listIterator();
@@ -108,7 +111,7 @@ public class Comparer {
 			
 			//convert current person into string to check if on AT list
 			s1=ADlitr.next();
-						
+			
 				//recreate iterator to step thru the AT list
 				ATlitr2=AT.listIterator();
 				found=false;
@@ -117,14 +120,15 @@ public class Comparer {
 				
 						//current item converted into string for comparison	
 						s2=ATlitr2.next();
-	
+						
+					//	System.out.println(s2);
 							//logic	
-							if(s1.equals(s2)) {
+							if(s1.toString().toLowerCase().equals(s2.toString().toLowerCase())) {
 									counter++;
 									found = true;
 					
 									//if person found will output on console	
-									//	System.out.println(s1 + " is " +  s2);
+									System.out.println(s1 + " is " +  s2);
 															
 										//when found break out of loop
 											break;		
